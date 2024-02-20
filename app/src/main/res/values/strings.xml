@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name" translatable="false">Todo List</string>
+    <string name="btnAddNoteDescription">Кнопка добавления новой заметки</string>
+    <string name="btnSaveNoteText">Сохранить заметку</string>
+    <string name="btnCloseNoteAddingScreenText">Закрыть</string>
+    <string name="noteAddingScreenTitleText">Создание заметки</string>
+    <string name="rbLowPriorityText">Низкий</string>
+    <string name="rbMediumPriority">Средний</string>
+    <string name="choosePriorityTitleText">Выберите приоритет:</string>
+    <string name="etNoteTextInputBoxTitleText">Введите текст заметки:</string>
+    <string name="etNoteTextInputBoxHint">Например, сходить в магазин</string>
+    <string name="btnCloseNoteAddingScreenDescription">Кнопка закрытия окна добавления заметки</string>
+    <string name="rbHighPriority">Высокий</string>
+</resources>

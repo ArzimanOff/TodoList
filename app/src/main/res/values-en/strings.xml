@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnAddNoteDescription">button for adding new Note</string>
+    <string name="btnSaveNoteText">Save note</string>
+    <string name="btnCloseNoteAddingScreenText">Close</string>
+    <string name="noteAddingScreenTitleText">Creating note</string>
+    <string name="rbLowPriorityText">Low</string>
+    <string name="rbMediumPriority">Medium</string>
+    <string name="rbHighPriority">High</string>
+    <string name="choosePriorityTitleText">Choose the priority</string>
+    <string name="etNoteTextInputBoxTitleText">Enter the note:</string>
+    <string name="etNoteTextInputBoxHint">For example, go to the store</string>
+    <string name="btnCloseNoteAddingScreenDescription">The button for closing the window for adding notes</string>
+</resources>

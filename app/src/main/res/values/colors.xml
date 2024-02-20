@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="high_priority_inactive">#80DD5147</color>
+    <color name="medium_priority_inactive">#80FFC107</color>
+    <color name="low_priority_inactive">#804CAF50</color>
+
+    <color name="high_priority_active">#DD5147</color>
+    <color name="medium_priority_active">#FFC107</color>
+    <color name="low_priority_active">#4CAF50</color>
+
+    <color name="text_color">#EEEEEE</color>
+    <color name="inactive_rb_text_color">#9C9C9C</color>
+
+    <color name="close_btn_bg">#33E4E4E4</color>
+    <color name="separator_color">#BDBDBD</color>
+</resources>
