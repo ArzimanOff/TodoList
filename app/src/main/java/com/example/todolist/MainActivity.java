@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,6 +55,23 @@ public class MainActivity extends AppCompatActivity {
                     R.layout.note_item,
                     notesListBox,
                     false);
+
+            noteView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    database.removeNote(note.getId());
+                    showNotesList();
+
+                    // Вызов вибрации
+                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    if (vibrator != null && vibrator.hasVibrator()) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
+
+                    return true;
+                }
+            });
+
             TextView noteItem = noteView.findViewById(R.id.tvNoteItem);
             setNoteParams(noteItem, note); // устанавливаем нужные свойства
             notesListBox.addView(noteView); // добавляем уже настроенное view в список
@@ -78,5 +99,4 @@ public class MainActivity extends AppCompatActivity {
         noteItem.setText(note.getText()); // текст заметки
         noteItem.setBackgroundColor(findColorOfNote(note)); // цвет приоритета заметки
     }
-
 }
