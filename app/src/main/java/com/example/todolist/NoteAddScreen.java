@@ -22,6 +22,8 @@ public class NoteAddScreen extends AppCompatActivity {
     Button btnSaveNote;
     private int priority = 0;
 
+    private Database database = Database.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +132,13 @@ public class NoteAddScreen extends AppCompatActivity {
                     R.string.emptyNoteTextToastText,
                     Toast.LENGTH_SHORT
             ).show();
+            return;
         }
         int notePriority = this.priority;
+        int id = database.getNotesList().size();
+        Note newNote = new Note(id, noteText, notePriority);
+        database.addNote(newNote);
+        finish();
     }
 
     @NonNull

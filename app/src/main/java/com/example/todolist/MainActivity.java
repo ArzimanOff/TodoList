@@ -4,36 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.controls.actions.FloatAction;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout notesListBox;
     private FloatingActionButton btnAddNote;
-    private ArrayList<Note> notesList = new ArrayList<>();
+    private Database database = Database.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initViews();
-        Random random = new Random();
-        for (int i = 0; i < 20; i++){
-            Note note = new Note(i, "Note #" + i, random.nextInt(3));
-            notesList.add(note);
-        }
-        showNotesList();
 
         btnAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +33,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showNotesList();
+    }
+
     private void initViews(){
         notesListBox = findViewById(R.id.notesListBox);
         btnAddNote = findViewById(R.id.btnAddNote);
     }
 
     private void showNotesList(){
-        for (Note note : notesList ) {
+        notesListBox.removeAllViews();
+        for (Note note : database.getNotesList() ) {
             View noteView =  getLayoutInflater().inflate(
                     R.layout.note_item,
                     notesListBox,
