@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NoteAddScreen.class);
+                Intent intent = NoteAddScreen.newIntent(MainActivity.this);
                 startActivity(intent);
             }
         });

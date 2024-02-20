@@ -11,4 +11,5 @@
     <string name="etNoteTextInputBoxTitleText">Enter the note:</string>
     <string name="etNoteTextInputBoxHint">For example, go to the store</string>
     <string name="btnCloseNoteAddingScreenDescription">The button for closing the window for adding notes</string>
+    <string name="emptyNoteTextToastText">The note cannot be empty!</string>
 </resources>

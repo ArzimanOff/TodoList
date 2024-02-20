@@ -11,4 +11,5 @@
     <string name="etNoteTextInputBoxHint">Например, сходить в магазин</string>
     <string name="btnCloseNoteAddingScreenDescription">Кнопка закрытия окна добавления заметки</string>
     <string name="rbHighPriority">Высокий</string>
+    <string name="emptyNoteTextToastText">Заметка не может быть пустой!</string>
 </resources>

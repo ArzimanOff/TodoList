@@ -1,7 +1,10 @@
 package com.example.todolist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class NoteAddScreen extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class NoteAddScreen extends AppCompatActivity {
     EditText etNoteTextInputBox;
     RadioGroup rgChoosePriority;
     Button btnSaveNote;
+    private int priority = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class NoteAddScreen extends AppCompatActivity {
         setContentView(R.layout.activity_note_add_screen);
         initViews();
 
+        // слушатель клика на кнопку закрытия Activity
         btnCloseNoteAddingScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,15 +36,25 @@ public class NoteAddScreen extends AppCompatActivity {
             }
         });
 
+        // устанавливаем значения по умолчанию для RadioButtons
         setDefaultParamsToRadioGroup();
+
+        // слушатель клика на радио-кнопки
         rgChoosePriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // если кнопка RadioButton нажата:
                 // делаем все остальные кнопки неактивными:
                 doAllOtherRadioButtonsInactive(group, checkedId);
-                // а нажатую делаем активной
+                // а нажатую делаем активной (выделяем)
                 doRadioButtonActive(checkedId);
+            }
+        });
+
+        btnSaveNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveNote();
             }
         });
     }
@@ -52,10 +68,13 @@ public class NoteAddScreen extends AppCompatActivity {
         int bgActiveColorId;
         if (checkedId == R.id.rbLowPriority){
             bgActiveColorId = R.color.low_priority_active;
+            priority = 0;
         } else if (checkedId == R.id.rbMediumPriority) {
             bgActiveColorId = R.color.medium_priority_active;
+            priority = 1;
         } else {
             bgActiveColorId = R.color.high_priority_active;
+            priority = 2;
         }
 
         // а для нажатой кнопки указываем настройки для активной кнопки:
@@ -101,5 +120,23 @@ public class NoteAddScreen extends AppCompatActivity {
         etNoteTextInputBox = findViewById(R.id.etNoteTextInputBox);
         rgChoosePriority = findViewById(R.id.rgChoosePriority);
         btnSaveNote = findViewById(R.id.btnSaveNote);
+    }
+
+    private void saveNote(){
+        String noteText = etNoteTextInputBox.getText().toString().trim();
+        if (noteText.equals("")){
+            Toast.makeText(
+                    this,
+                    R.string.emptyNoteTextToastText,
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+        int notePriority = this.priority;
+    }
+
+    @NonNull
+    public static Intent newIntent(Context context){
+        Intent intent = new Intent(context, NoteAddScreen.class);
+        return intent;
     }
 }
