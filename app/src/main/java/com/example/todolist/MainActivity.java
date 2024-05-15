@@ -1,16 +1,10 @@
 package com.example.todolist;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +17,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout notesListBox;
-    private FloatingActionButton btnAddNote;
+    private FloatingActionButton btnNewNote;
     private ArrayList<Note> notesList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +25,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-
         Random random = new Random();
         for (int i = 0; i < 52; i++) {
             Note note = new Note(i, "Note #" + i, random.nextInt(3));
             notesList.add(note);
         }
         showNotesList();
+        btnNewNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AddNoteActivity.newIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showNotesList() {
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews(){
         notesListBox = findViewById(R.id.notesListBox);
-        btnAddNote = findViewById(R.id.btnAddNote);
+        btnNewNote = findViewById(R.id.btnNewNote);
     }
 
 }
