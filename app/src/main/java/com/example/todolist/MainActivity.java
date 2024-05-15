@@ -3,6 +3,7 @@ package com.example.todolist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout notesListBox;
     private FloatingActionButton btnAddNote;
-    private Database database = Database.getInstance();
+    private ArrayList<Note> notesList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,19 +32,46 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        btnAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = NoteAddScreen.newIntent(MainActivity.this);
-                startActivity(intent);
+        Random random = new Random();
+        for (int i = 0; i < 52; i++) {
+            Note note = new Note(i, "Note #" + i, random.nextInt(3));
+            notesList.add(note);
+        }
+        showNotesList();
+    }
+
+    private void showNotesList() {
+        for (Note note : notesList){
+            View view = getLayoutInflater().inflate(
+                    R.layout.note_item,
+                    notesListBox,
+                    false
+            );
+            TextView noteItemView = view.findViewById(R.id.tvNoteItem);
+            noteItemView.setText(note.getText());
+
+            int colorId;
+            switch (note.getPriority()){
+                case 0:
+                    colorId = R.color.low_priority_active;
+                    break;
+                case 1:
+                    colorId = R.color.medium_priority_active;
+                    break;
+                default:
+                    colorId = R.color.high_priority_active;
             }
-        });
+
+            int color = ContextCompat.getColor(this, colorId);
+            noteItemView.setBackgroundColor(color);
+
+            notesListBox.addView(view);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        showNotesList();
     }
 
     private void initViews(){
@@ -48,55 +79,4 @@ public class MainActivity extends AppCompatActivity {
         btnAddNote = findViewById(R.id.btnAddNote);
     }
 
-    private void showNotesList(){
-        notesListBox.removeAllViews();
-        for (Note note : database.getNotesList() ) {
-            View noteView =  getLayoutInflater().inflate(
-                    R.layout.note_item,
-                    notesListBox,
-                    false);
-
-            noteView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    database.removeNote(note.getId());
-                    showNotesList();
-
-                    // Вызов вибрации
-                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    if (vibrator != null && vibrator.hasVibrator()) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
-                    }
-
-                    return true;
-                }
-            });
-
-            TextView noteItem = noteView.findViewById(R.id.tvNoteItem);
-            setNoteParams(noteItem, note); // устанавливаем нужные свойства
-            notesListBox.addView(noteView); // добавляем уже настроенное view в список
-        }
-    }
-
-    private int findColorOfNote(@NonNull Note note){
-        int colorResId;
-        switch (note.getPriority()) {
-            case 0:
-                colorResId = R.color.low_priority_active;
-                break;
-            case 1:
-                colorResId = R.color.medium_priority_active;
-                break;
-            default:
-                colorResId = R.color.high_priority_active;
-                break;
-        }
-        int color = ContextCompat.getColor(this, colorResId);
-        return color;
-    }
-
-    private void setNoteParams(TextView noteItem, Note note){
-        noteItem.setText(note.getText()); // текст заметки
-        noteItem.setBackgroundColor(findColorOfNote(note)); // цвет приоритета заметки
-    }
 }
