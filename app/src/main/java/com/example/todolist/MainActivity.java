@@ -5,14 +5,14 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
                     notesListBox,
                     false
             );
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    database.remove(note.getId());
+                    vibrate();
+                    showNotesList();
+                    return true;
+                }
+            });
+
             TextView noteItemView = view.findViewById(R.id.tvNoteItem);
             noteItemView.setText(note.getText());
 
@@ -71,9 +82,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (vibrator != null) {
+            vibrator.vibrate(
+                    VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE)
+            );
+        }
+
+    }
+
     private void initViews(){
         notesListBox = findViewById(R.id.notesListBox);
         btnNewNote = findViewById(R.id.btnNewNote);
     }
-
 }
