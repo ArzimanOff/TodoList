@@ -18,19 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout notesListBox;
     private FloatingActionButton btnNewNote;
-    private ArrayList<Note> notesList = new ArrayList<>();
+    private Database database = new Database();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initViews();
-        Random random = new Random();
-        for (int i = 0; i < 52; i++) {
-            Note note = new Note(i, "Note #" + i, random.nextInt(3));
-            notesList.add(note);
-        }
-        showNotesList();
         btnNewNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +33,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // вызываем функцию отрисовки заметок каждый раз когда активити получает фокус
+        showNotesList();
+    }
+
     private void showNotesList() {
-        for (Note note : notesList){
+        // очищаем от старых заметок чтобы  добавить новые
+        notesListBox.removeAllViews();
+        for (Note note : database.getNotesList()){
             View view = getLayoutInflater().inflate(
                     R.layout.note_item,
                     notesListBox,
@@ -67,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
             notesListBox.addView(view);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void initViews(){

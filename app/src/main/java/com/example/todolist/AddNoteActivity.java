@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,7 +26,9 @@ public class AddNoteActivity extends AppCompatActivity {
     private RadioButton rbMediumPriority;
     private RadioButton rbHighPriority;
     private MaterialButton btnSaveNote;
+    private Button btnCloseNoteAddingScreen;
 
+    private Database database = new Database();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,16 @@ public class AddNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_note);
         initViews();
         updateStyleChoosePriorityRadioGroup();
+        // слушатель на кнопку закрытия экрана
+        btnCloseNoteAddingScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+        // слушатель на кнопку сохранения заметки
         btnSaveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +53,7 @@ public class AddNoteActivity extends AppCompatActivity {
             }
         });
 
+        // слушатель на группу радиокнопок для изменения приоритета
         rgChoosePriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -55,6 +69,7 @@ public class AddNoteActivity extends AppCompatActivity {
         rbMediumPriority = findViewById(R.id.rbMediumPriority);
         rbHighPriority = findViewById(R.id.rbHighPriority);
         btnSaveNote = findViewById(R.id.btnSaveNote);
+        btnCloseNoteAddingScreen = findViewById(R.id.btnCloseNoteAddingScreen);
     }
 
     private void saveNote() {
@@ -67,6 +82,11 @@ public class AddNoteActivity extends AppCompatActivity {
             return;
         }
         int priority = getPriority();
+        int id = database.getNotesList().size();
+
+        Note note = new Note(id, inputNoteText, priority);
+        database.add(note);
+        finish();
     }
 
     private int getPriority(){
