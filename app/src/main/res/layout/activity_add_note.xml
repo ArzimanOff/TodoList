@@ -112,7 +112,9 @@
             android:textSize="20sp"
             android:textColor="@color/inactive_rb_text_color"
             android:textStyle="normal"
-            android:text="@string/rbLowPriorityText" />
+            android:text="@string/rbLowPriorityText"
+            android:checked="true"
+            />
 
         <RadioButton
             android:id="@+id/rbMediumPriority"

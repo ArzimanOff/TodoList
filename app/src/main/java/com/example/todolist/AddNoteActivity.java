@@ -2,23 +2,29 @@ package com.example.todolist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 
 public class AddNoteActivity extends AppCompatActivity {
 
-    EditText NoteTextInputBox;
-    RadioButton rbLowPriority;
-    RadioButton rbMediumPriority;
-    RadioButton rbHighPriority;
-    MaterialButton btnSaveNote;
+    private EditText NoteTextInputBox;
+    private RadioGroup rgChoosePriority;
+    private RadioButton rbLowPriority;
+    private RadioButton rbMediumPriority;
+    private RadioButton rbHighPriority;
+    private MaterialButton btnSaveNote;
 
 
     @Override
@@ -26,16 +32,25 @@ public class AddNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
         initViews();
+        updateStyleChoosePriorityRadioGroup();
         btnSaveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveNote();
             }
         });
+
+        rgChoosePriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                updateStyleChoosePriorityRadioGroup();
+            }
+        });
     }
 
     private void initViews() {
         NoteTextInputBox = findViewById(R.id.etNoteTextInputBox);
+        rgChoosePriority = findViewById(R.id.rgChoosePriority);
         rbLowPriority = findViewById(R.id.rbLowPriority);
         rbMediumPriority = findViewById(R.id.rbMediumPriority);
         rbHighPriority = findViewById(R.id.rbHighPriority);
@@ -52,29 +67,83 @@ public class AddNoteActivity extends AppCompatActivity {
             return;
         }
         int priority = getPriority();
-        if (priority == -1){
-            Toast.makeText(this,
-                    "Выберите уровень приоритета!",
-                    Toast.LENGTH_SHORT
-            ).show();
-            return;
-        }
     }
 
     private int getPriority(){
         int priority;
+
         if (rbLowPriority.isChecked()){
             priority = 0;
         } else if (rbMediumPriority.isChecked()) {
             priority = 1;
-        } else if (rbHighPriority.isChecked()){
+        } else{
             priority = 2;
-        } else {
-            priority = -1;
         }
         return priority;
     }
 
+    public void updateStyleChoosePriorityRadioGroup(){
+        int textColor = ContextCompat.getColor(this, R.color.text_color);
+        int inactive_rb_text_color = ContextCompat.getColor(this, R.color.inactive_rb_text_color);
+        if (rbLowPriority.isChecked()){
+            // активируем нужные стили для текущего радиобокса
+            rbLowPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.low_priority_active)
+            );
+            rbLowPriority.setTextColor(textColor);
+
+            // деактивируем нужные стили для остальных радиобоксов
+            rbMediumPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.medium_priority_inactive)
+            );
+            rbMediumPriority.setTextColor(inactive_rb_text_color);
+
+            rbHighPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.high_priority_inactive)
+            );
+            rbHighPriority.setTextColor(inactive_rb_text_color);
+
+        } else if (rbMediumPriority.isChecked()) {
+            // активируем нужные стили для текущего радиобокса
+            rbMediumPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.medium_priority_active)
+            );
+            rbMediumPriority.setTextColor(textColor);
+
+            // деактивируем нужные стили для остальных радиобоксов
+            rbLowPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.low_priority_inactive)
+            );
+            rbLowPriority.setTextColor(inactive_rb_text_color);
+
+            rbHighPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.high_priority_inactive)
+            );
+            rbHighPriority.setTextColor(inactive_rb_text_color);
+
+        } else if (rbHighPriority.isChecked()){
+            // активируем нужные стили для текущего радиобокса
+            rbHighPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.high_priority_active)
+            );
+            rbHighPriority.setTextColor(textColor);
+
+            // деактивируем нужные стили для остальных радиобоксов
+            rbLowPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.low_priority_inactive)
+            );
+            rbLowPriority.setTextColor(inactive_rb_text_color);
+
+            rbMediumPriority.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.medium_priority_inactive)
+            );
+            rbMediumPriority.setTextColor(inactive_rb_text_color);
+
+        } else {
+            throw new RuntimeException("It seems that none of the priorities have been chosen " +
+                    "(Похоже ни один из приоритетов не выбран)");
+        }
+    }
 
     public static Intent newIntent(Context context){
         return new Intent(context, AddNoteActivity.class);
