@@ -28,7 +28,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private MaterialButton btnSaveNote;
     private Button btnCloseNoteAddingScreen;
 
-    private Database database = new Database();
+    private Database database = Database.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout notesListBox;
     private FloatingActionButton btnNewNote;
-    private Database database = new Database();
+    private Database database = Database.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
