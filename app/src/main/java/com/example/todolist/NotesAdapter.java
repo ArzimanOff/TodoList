@@ -1,6 +1,5 @@
 package com.example.todolist;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,15 @@ import java.util.ArrayList;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
+
     private ArrayList<Note> notes = new ArrayList<>();
+    private OnNoteClickListener onNoteClickListener;
+    public void setOnNoteClickListener(OnNoteClickListener onNoteClickListener) {
+        this.onNoteClickListener = onNoteClickListener;
+    }
+    public ArrayList<Note> getNotes() {
+        return new ArrayList<>(notes);
+    }
 
     public void setNotes(ArrayList<Note> notes) {
         this.notes = notes;
@@ -51,6 +58,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
         int color = ContextCompat.getColor(holder.itemView.getContext(), colorId);
         holder.noteItemView.setBackgroundColor(color);
+
+        holder.noteItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onNoteClickListener != null){
+                    onNoteClickListener.onNoteClick(note);
+                }
+            }
+        });
     }
 
     @Override
@@ -58,13 +74,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return notes.size();
     }
 
-
-
-    class NotesViewHolder extends RecyclerView.ViewHolder{
+    static class NotesViewHolder extends RecyclerView.ViewHolder{
         private TextView noteItemView;
         public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
             noteItemView = itemView.findViewById(R.id.tvNoteItem);
         }
+    }
+
+    interface OnNoteClickListener{
+        void onNoteClick(Note note);
     }
 }
