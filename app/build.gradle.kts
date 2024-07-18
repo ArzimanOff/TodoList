@@ -32,8 +32,10 @@ android {
 }
 
 dependencies {
-//    implementation("androidx.room:room-runtime:2.5.1")
-//    annotationProcessor("androidx.room:room-compiler:2.5.1")
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
