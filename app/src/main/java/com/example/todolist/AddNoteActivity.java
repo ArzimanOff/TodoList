@@ -81,10 +81,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private void saveNote() {
         String inputNoteText = NoteTextInputBox.getText().toString().trim();
         if (inputNoteText.isEmpty()){
-            Toast.makeText(this,
-                    "Заметка не может быть пустой!",
-                    Toast.LENGTH_SHORT
-            ).show();
+            ApplicationSignals.notifyEmptyNote(this);
             return;
         }
         int priority = getPriority();
