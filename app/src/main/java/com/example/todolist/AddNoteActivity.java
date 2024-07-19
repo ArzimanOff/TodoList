@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,8 +30,8 @@ public class AddNoteActivity extends AppCompatActivity {
     private RadioButton rbHighPriority;
     private MaterialButton btnSaveNote;
     private Button btnCloseNoteAddingScreen;
-
     private NoteDatabase noteDatabase;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +88,20 @@ public class AddNoteActivity extends AppCompatActivity {
             return;
         }
         int priority = getPriority();
-        int id = 0; // id по умолчанию = 0 чтобы бд поняла что нужно сгенерировать уникальный ключ id
-        Note note = new Note(id, inputNoteText, priority);
-        noteDatabase.notesDao().add(note);
-        finish();
+        Note note = new Note(inputNoteText, priority);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                noteDatabase.notesDao().add(note);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                });
+            }
+        });
+        thread.start();
     }
 
     private int getPriority(){
