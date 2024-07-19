@@ -2,6 +2,7 @@ package com.example.todolist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,12 +29,13 @@ public class AddNoteActivity extends AppCompatActivity {
     private MaterialButton btnSaveNote;
     private Button btnCloseNoteAddingScreen;
 
-    private Database database = Database.getInstance();
+    private NoteDatabase noteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        noteDatabase = NoteDatabase.getInstance(getApplication());
         initViews();
         updateStyleChoosePriorityRadioGroup();
         // слушатель на кнопку закрытия экрана
@@ -60,6 +62,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 updateStyleChoosePriorityRadioGroup();
             }
         });
+
     }
 
     private void initViews() {
@@ -68,6 +71,7 @@ public class AddNoteActivity extends AppCompatActivity {
         rbLowPriority = findViewById(R.id.rbLowPriority);
         rbMediumPriority = findViewById(R.id.rbMediumPriority);
         rbHighPriority = findViewById(R.id.rbHighPriority);
+
         btnSaveNote = findViewById(R.id.btnSaveNote);
         btnCloseNoteAddingScreen = findViewById(R.id.btnCloseNoteAddingScreen);
     }
@@ -82,10 +86,9 @@ public class AddNoteActivity extends AppCompatActivity {
             return;
         }
         int priority = getPriority();
-        int id = database.getNotesList().size();
-
+        int id = 0; // id по умолчанию = 0 чтобы бд поняла что нужно сгенерировать уникальный ключ id
         Note note = new Note(id, inputNoteText, priority);
-        database.add(note);
+        noteDatabase.notesDao().add(note);
         finish();
     }
 
