@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -30,14 +32,24 @@ public class AddNoteActivity extends AppCompatActivity {
     private RadioButton rbHighPriority;
     private MaterialButton btnSaveNote;
     private Button btnCloseNoteAddingScreen;
-    private NoteDatabase noteDatabase;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private AddNoteViewModel addNoteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
-        noteDatabase = NoteDatabase.getInstance(getApplication());
+        addNoteViewModel = new ViewModelProvider(this).get(AddNoteViewModel.class);
+        addNoteViewModel.getNoteAdded().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean noteAdded) {
+                // закрываем текущее активити
+                // если процесс добавления заметки был выполнен
+                // и noteAdded стало равны true
+                if (noteAdded){
+                    finish();
+                }
+            }
+        });
         initViews();
         updateStyleChoosePriorityRadioGroup();
         // слушатель на кнопку закрытия экрана
@@ -81,24 +93,13 @@ public class AddNoteActivity extends AppCompatActivity {
     private void saveNote() {
         String inputNoteText = NoteTextInputBox.getText().toString().trim();
         if (inputNoteText.isEmpty()){
+            // если текст заметки пустой, выкидываем уведомление об этом и не создаем экземпляр Note
             ApplicationSignals.notifyEmptyNote(this);
             return;
         }
         int priority = getPriority();
         Note note = new Note(inputNoteText, priority);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                noteDatabase.notesDao().add(note);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                });
-            }
-        });
-        thread.start();
+        addNoteViewModel.saveNote(note);
     }
 
     private int getPriority(){
