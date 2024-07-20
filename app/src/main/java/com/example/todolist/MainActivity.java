@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private NotesAdapter notesAdapter;
     private FloatingActionButton btnNewNote;
     private MainViewModel viewModel;
-    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

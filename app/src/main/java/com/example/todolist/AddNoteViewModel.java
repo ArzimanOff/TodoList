@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+
 public class AddNoteViewModel extends AndroidViewModel {
     private NotesDao notesDao;
 
@@ -21,7 +22,7 @@ public class AddNoteViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 notesDao.add(note);
-                noteAdded.setValue(true);
+                noteAdded.postValue(true);
             }
         });
         thread.start();
