@@ -54,11 +54,13 @@
             android:layout_marginTop="36dp"
             android:textSize="18sp"
             android:textStyle="normal"
+            android:textColor="@color/white"
 
-            app:icon="@android:drawable/ic_input_add"
+            app:icon="@drawable/ic_add_icon"
+            app:iconTint="@color/white"
             app:iconGravity="textStart"
             app:iconPadding="8dp"
-            app:iconSize="26dp"
+            app:iconSize="30dp"
             />
 
     </LinearLayout>
