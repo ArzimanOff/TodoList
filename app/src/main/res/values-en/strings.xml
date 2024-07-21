@@ -12,4 +12,7 @@
     <string name="etNoteTextInputBoxHint">For example, go to the store</string>
     <string name="btnCloseNoteAddingScreenDescription">The button for closing the window for adding notes</string>
     <string name="emptyNoteTextToastText">The note cannot be empty!</string>
+    <string name="empty_notes_placeholder_text_1st_part">Oops...</string>
+    <string name="empty_notes_placeholder_text_2nd_part">It looks like the list of notes is empty!</string>
+    <string name="placeholder_new_note_btn">Add note</string>
 </resources>

@@ -6,6 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/empty_notes_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_notes_placeholder_text_1st_part"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="36sp"
+            android:textColor="@color/empty_notes_placeholder_main_color"
+            />
+
+        <ImageView
+            android:id="@+id/centerImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/ic_empty_notes_list_vector"
+            />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_notes_placeholder_text_2nd_part"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:textColor="@color/empty_notes_placeholder_main_color"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/placeholder_new_note_btn"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="@string/placeholder_new_note_btn"
+            app:cornerRadius="16dp"
+            android:backgroundTint="@color/empty_notes_placeholder_main_color"
+            android:layout_marginTop="36dp"
+            android:textSize="18sp"
+            android:textStyle="normal"
+
+            app:icon="@android:drawable/ic_input_add"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconSize="26dp"
+            />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewNotes"
         android:layout_width="0dp"

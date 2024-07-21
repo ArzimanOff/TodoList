@@ -15,16 +15,19 @@ import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView recyclerViewNotes;
     private NotesAdapter notesAdapter;
+    private LinearLayout emptyNotesPlaceholder;
+    private MaterialButton newNoteFromPlaceholderBtn;
     private FloatingActionButton btnNewNote;
     private MainViewModel viewModel;
 
@@ -32,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
         initViews();
+
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         notesAdapter = new NotesAdapter();
         notesAdapter.setOnNoteClickListener(new NotesAdapter.OnNoteClickListener() {
             @Override
@@ -47,10 +50,18 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
-                notesAdapter.setNotes(notes);
+                if (notes.isEmpty()){
+                    emptyNotesPlaceholder.setVisibility(View.VISIBLE);
+                    btnNewNote.setVisibility(View.GONE);
+                    recyclerViewNotes.setVisibility(View.GONE);
+                } else {
+                    emptyNotesPlaceholder.setVisibility(View.GONE);
+                    recyclerViewNotes.setVisibility(View.VISIBLE);
+                    btnNewNote.setVisibility(View.VISIBLE);
+                    notesAdapter.setNotes(notes);
+                }
             }
         });
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(
                         0,
@@ -78,15 +89,19 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         itemTouchHelper.attachToRecyclerView(recyclerViewNotes);
-        btnNewNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = AddNoteActivity.newIntent(MainActivity.this);
-                startActivity(intent);
-            }
-        });
+
+
+        // Устанавливаем обработчик нажатий с помощью лямбда-выражений
+        View.OnClickListener openAddNoteClickListener = v -> openAddNoteActivity();
+
+        btnNewNote.setOnClickListener(openAddNoteClickListener);
+        newNoteFromPlaceholderBtn.setOnClickListener(openAddNoteClickListener);
     }
 
+    private void openAddNoteActivity() {
+        Intent intent = AddNoteActivity.newIntent(MainActivity.this);
+        startActivity(intent);
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -96,5 +111,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
         btnNewNote = findViewById(R.id.btnNewNote);
+        emptyNotesPlaceholder = findViewById(R.id.empty_notes_placeholder);
+        newNoteFromPlaceholderBtn = findViewById(R.id.placeholder_new_note_btn);
     }
 }

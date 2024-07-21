@@ -12,4 +12,7 @@
     <string name="btnCloseNoteAddingScreenDescription">Кнопка закрытия окна добавления заметки</string>
     <string name="rbHighPriority">Высокий</string>
     <string name="emptyNoteTextToastText">Заметка не может быть пустой!</string>
+    <string name="empty_notes_placeholder_text_2nd_part">Похоже, что список заметок пуст!</string>
+    <string name="empty_notes_placeholder_text_1st_part">Упс...</string>
+    <string name="placeholder_new_note_btn">Добавить заметку</string>
 </resources>
