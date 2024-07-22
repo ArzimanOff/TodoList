@@ -148,11 +148,18 @@
         android:id="@+id/btnSaveNote"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_margin="16dp"
         android:text="@string/btnSaveNoteText"
+        app:cornerRadius="16dp"
+        android:backgroundTint="@color/main_color"
+        android:layout_margin="16dp"
         android:textSize="18sp"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgChoosePriority"/>
+        app:layout_constraintTop_toBottomOf="@+id/rgChoosePriority"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

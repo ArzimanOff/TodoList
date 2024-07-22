@@ -13,7 +13,7 @@
 
     <color name="text_color">#EEEEEE</color>
     <color name="inactive_rb_text_color">#9C9C9C</color>
-    <color name="empty_notes_placeholder_main_color">#7959E1</color>
+    <color name="main_color">#7959E1</color>
 
     <color name="close_btn_bg">#33E4E4E4</color>
     <color name="separator_color">#BDBDBD</color>

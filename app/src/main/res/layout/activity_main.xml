@@ -24,7 +24,7 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="36sp"
-            android:textColor="@color/empty_notes_placeholder_main_color"
+            android:textColor="@color/main_color"
             />
 
         <ImageView
@@ -41,7 +41,7 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="26sp"
-            android:textColor="@color/empty_notes_placeholder_main_color"
+            android:textColor="@color/main_color"
             />
 
         <com.google.android.material.button.MaterialButton
@@ -50,7 +50,7 @@
             android:layout_height="60dp"
             android:text="@string/placeholder_new_note_btn"
             app:cornerRadius="16dp"
-            android:backgroundTint="@color/empty_notes_placeholder_main_color"
+            android:backgroundTint="@color/main_color"
             android:layout_marginTop="36dp"
             android:textSize="18sp"
             android:textStyle="normal"

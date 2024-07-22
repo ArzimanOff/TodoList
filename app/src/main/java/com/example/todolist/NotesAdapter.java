@@ -3,6 +3,7 @@ package com.example.todolist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,23 +41,32 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
+        /*
+        holder.noteItemView - это сам элемент заметки
+         */
         Note note = notes.get(position);
-        holder.noteItemView.setText(note.getText());
 
-        int colorId;
+        // таким образом получаем textView внутри holder.noteItemView и устанавливаем ему текст
+        TextView noteItemViewText = holder.noteItemView.findViewById(R.id.tvNoteItemText);
+        noteItemViewText.setText(note.getText());
+
+        // таким образом получаем View внутри holder.noteItemView который отображает
+        // приоритет и устанвливаем его
+        View priorityView = holder.noteItemView.findViewById(R.id.priorityView);
+
+        int bgId;
         switch (note.getPriority()){
             case 0:
-                colorId = R.color.low_priority_active;
+                bgId = R.drawable.low_priority_view_bg;
                 break;
             case 1:
-                colorId = R.color.medium_priority_active;
+                bgId = R.drawable.medium_priority_view_bg;
                 break;
             default:
-                colorId = R.color.high_priority_active;
+                bgId = R.drawable.high_priority_view_bg;
         }
 
-        int color = ContextCompat.getColor(holder.itemView.getContext(), colorId);
-        holder.noteItemView.setBackgroundColor(color);
+        priorityView.setBackgroundResource(bgId);
 
         holder.noteItemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,10 +84,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     }
 
     static class NotesViewHolder extends RecyclerView.ViewHolder{
-        private TextView noteItemView;
+        private LinearLayout noteItemView;
         public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteItemView = itemView.findViewById(R.id.tvNoteItem);
+            noteItemView = itemView.findViewById(R.id.noteItem);
         }
     }
 
