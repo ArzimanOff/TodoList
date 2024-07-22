@@ -10,30 +10,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:focusable="true"
         android:text="@string/noteAddingScreenTitleText"
         android:textSize="26sp"
-        android:textStyle="bold"
 
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btnCloseNoteAddingScreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnCloseNoteAddingScreen" />
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCloseNoteAddingScreen"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:textSize="12sp"
-        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
         android:backgroundTint="@color/close_btn_bg"
-
         android:contentDescription="@string/btnCloseNoteAddingScreenDescription"
-        />
+        android:textSize="12sp"
+        app:cornerRadius="14dp"
+
+        app:icon="@drawable/close_activity_icon"
+        app:iconGravity="top"
+
+        app:iconPadding="8dp"
+        app:iconSize="30dp"
+        app:iconTint="@color/close_activity_icon_color"
+        app:layout_constraintBottom_toTopOf="@+id/headerSeparator"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/headerSeparator"
@@ -51,44 +59,51 @@
         android:id="@+id/etNoteTextInputBoxTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/etNoteTextInputBoxTitleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerSeparator"
-
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:text="@string/etNoteTextInputBoxTitleText"
         android:textStyle="bold"
-        />
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerSeparator" />
 
     <EditText
         android:id="@+id/etNoteTextInputBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginHorizontal="16dp"
+
         android:layout_marginTop="4dp"
+        android:background="@drawable/edit_note_text_view_bg"
 
         android:hint="@string/etNoteTextInputBoxHint"
+
         android:inputType="text"
         android:minHeight="48dp"
+
+        android:paddingHorizontal="16dp"
+
+        app:layout_constraintBottom_toTopOf="@id/choosePriorityTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNoteTextInputBoxTitle" />
+        app:layout_constraintTop_toBottomOf="@id/etNoteTextInputBoxTitle"
+
+        android:importantForAutofill="no"
+        />
 
     <TextView
         android:id="@+id/choosePriorityTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/choosePriorityTitleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNoteTextInputBox"
-
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:text="@string/choosePriorityTitleText"
         android:textStyle="bold"
-        />
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNoteTextInputBox" />
 
     <RadioGroup
         android:id="@+id/rgChoosePriority"
@@ -98,49 +113,53 @@
         android:layout_marginTop="4dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choosePriorityTitle">
+        app:layout_constraintTop_toBottomOf="@+id/choosePriorityTitle"
+        android:weightSum="3"
+        >
 
         <RadioButton
             android:id="@+id/rbLowPriority"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/default_priority_rb_bg"
             android:button="@null"
-            android:textAlignment="center"
-            android:background="@color/low_priority_inactive"
-            android:textSize="20sp"
-            android:textColor="@color/inactive_rb_text_color"
-            android:textStyle="normal"
-            android:text="@string/rbLowPriorityText"
             android:checked="true"
-            />
+            android:text="@string/rbLowPriorityText"
+            android:textAlignment="center"
+            android:textColor="@color/inactive_rb_color"
+            android:textSize="16sp"
+            android:textStyle="normal" />
 
         <RadioButton
             android:id="@+id/rbMediumPriority"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/default_priority_rb_bg"
             android:button="@null"
+            android:text="@string/rbMediumPriority"
             android:textAlignment="center"
-            android:background="@color/medium_priority_inactive"
-            android:textSize="20sp"
-            android:textColor="@color/inactive_rb_text_color"
+            android:textColor="@color/inactive_rb_color"
+            android:textSize="16sp"
             android:textStyle="normal"
-            android:text="@string/rbMediumPriority" />
+            android:layout_marginHorizontal="8dp"
+            />
 
         <RadioButton
             android:id="@+id/rbHighPriority"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/default_priority_rb_bg"
             android:button="@null"
+            android:text="@string/rbHighPriority"
             android:textAlignment="center"
-            android:background="@color/high_priority_inactive"
-            android:textSize="20sp"
-            android:textColor="@color/inactive_rb_text_color"
-            android:textStyle="normal"
-            android:text="@string/rbHighPriority" />
+            android:textColor="@color/inactive_rb_color"
+            android:textSize="16sp"
+            android:textStyle="normal" />
     </RadioGroup>
 
 
@@ -148,18 +167,17 @@
         android:id="@+id/btnSaveNote"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:text="@string/btnSaveNoteText"
-        app:cornerRadius="16dp"
-        android:backgroundTint="@color/main_color"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/main_color"
+        android:text="@string/btnSaveNoteText"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="normal"
-        android:textColor="@color/white"
+        app:cornerRadius="16dp"
 
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgChoosePriority"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/rgChoosePriority" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

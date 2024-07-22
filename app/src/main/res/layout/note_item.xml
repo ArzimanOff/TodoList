@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/tvNoteItem"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:maxHeight="80dp"-->
-
-<!--    android:textSize="20sp"-->
-<!--    android:textColor="@color/text_color"-->
-<!--    android:padding="16dp"-->
-<!--    android:layout_marginHorizontal="16dp"-->
-<!--    android:layout_marginBottom="16dp"-->
-
-<!--    tools:background="@color/high_priority_active"-->
-<!--    tools:text="Test Text"-->
-<!--    />-->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/noteItem"
     android:layout_width="match_parent"
@@ -25,23 +8,10 @@
 
     android:padding="16dp"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginBottom="16dp"
+    android:layout_marginVertical="8dp"
 
     android:background="@drawable/note_view_bg"
     >
-
-    <TextView
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/tvNoteItemText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxHeight="80dp"
-        android:layout_weight="6"
-        android:textSize="20sp"
-        android:textColor="@color/main_color"
-
-        android:text="Test Text"
-        />
 
     <View
         xmlns:tools="http://schemas.android.com/tools"
@@ -51,6 +21,23 @@
         android:layout_height="match_parent"
         android:background="@drawable/high_priority_view_bg"
         />
+
+    <TextView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/tvNoteItemText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="80dp"
+        android:layout_weight="25"
+        android:textSize="20sp"
+        android:textColor="@color/main_color"
+        android:layout_marginStart="16dp"
+
+        android:text="TestTextTestTextTestTextTestText3er"
+        />
+
+
+
 </LinearLayout>
 
 

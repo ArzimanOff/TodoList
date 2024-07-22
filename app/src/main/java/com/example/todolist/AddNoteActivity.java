@@ -116,62 +116,46 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     public void updateStyleChoosePriorityRadioGroup(){
-        int textColor = ContextCompat.getColor(this, R.color.text_color);
-        int inactive_rb_text_color = ContextCompat.getColor(this, R.color.inactive_rb_text_color);
+        int lowPriorityTextColor = ContextCompat.getColor(this, R.color.low_priority_active);
+        int mediumPriorityTextColor = ContextCompat.getColor(this, R.color.medium_priority_active);
+        int highPrioriTytextColor = ContextCompat.getColor(this, R.color.high_priority_active);
+        int inactive_rb_color = ContextCompat.getColor(this, R.color.inactive_rb_color);
+
         if (rbLowPriority.isChecked()){
             // активируем нужные стили для текущего радиобокса
-            rbLowPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.low_priority_active)
-            );
-            rbLowPriority.setTextColor(textColor);
+            rbLowPriority.setBackgroundResource(R.drawable.low_priority_rb_bg);
+            rbLowPriority.setTextColor(lowPriorityTextColor);
 
             // деактивируем нужные стили для остальных радиобоксов
-            rbMediumPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.medium_priority_inactive)
-            );
-            rbMediumPriority.setTextColor(inactive_rb_text_color);
+            rbMediumPriority.setBackgroundResource(R.drawable.default_priority_rb_bg);
+            rbMediumPriority.setTextColor(inactive_rb_color);
 
-            rbHighPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.high_priority_inactive)
-            );
-            rbHighPriority.setTextColor(inactive_rb_text_color);
+            rbHighPriority.setBackgroundResource(R.drawable.default_priority_rb_bg);
+            rbHighPriority.setTextColor(inactive_rb_color);
 
         } else if (rbMediumPriority.isChecked()) {
             // активируем нужные стили для текущего радиобокса
-            rbMediumPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.medium_priority_active)
-            );
-            rbMediumPriority.setTextColor(textColor);
+            rbMediumPriority.setBackgroundResource(R.drawable.midium_priority_rb_bg);
+            rbMediumPriority.setTextColor(mediumPriorityTextColor);
 
             // деактивируем нужные стили для остальных радиобоксов
-            rbLowPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.low_priority_inactive)
-            );
-            rbLowPriority.setTextColor(inactive_rb_text_color);
+            rbLowPriority.setBackgroundResource(R.drawable.default_priority_rb_bg);
+            rbLowPriority.setTextColor(inactive_rb_color);
 
-            rbHighPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.high_priority_inactive)
-            );
-            rbHighPriority.setTextColor(inactive_rb_text_color);
+            rbHighPriority.setBackgroundResource(R.drawable.default_priority_rb_bg);
+            rbHighPriority.setTextColor(inactive_rb_color);
 
         } else if (rbHighPriority.isChecked()){
             // активируем нужные стили для текущего радиобокса
-            rbHighPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.high_priority_active)
-            );
-            rbHighPriority.setTextColor(textColor);
+            rbHighPriority.setBackgroundResource(R.drawable.high_priority_rb_bg);
+            rbHighPriority.setTextColor(highPrioriTytextColor);
 
             // деактивируем нужные стили для остальных радиобоксов
-            rbLowPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.low_priority_inactive)
-            );
-            rbLowPriority.setTextColor(inactive_rb_text_color);
+            rbLowPriority.setBackgroundResource(R.drawable.default_priority_rb_bg);
+            rbLowPriority.setTextColor(inactive_rb_color);
 
-            rbMediumPriority.setBackgroundColor(
-                    ContextCompat.getColor(this, R.color.medium_priority_inactive)
-            );
-            rbMediumPriority.setTextColor(inactive_rb_text_color);
-
+            rbMediumPriority.setBackgroundResource(R.drawable.default_priority_rb_bg);
+            rbMediumPriority.setTextColor(inactive_rb_color);
         } else {
             throw new RuntimeException("It seems that none of the priorities have been chosen " +
                     "(Похоже ни один из приоритетов не выбран)");
