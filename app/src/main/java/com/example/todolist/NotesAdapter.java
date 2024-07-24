@@ -48,12 +48,31 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
         // таким образом получаем textView внутри holder.noteItemView и устанавливаем ему текст
         TextView noteItemViewText = holder.noteItemView.findViewById(R.id.tvNoteItemText);
-        noteItemViewText.setText(note.getText());
 
         // таким образом получаем View внутри holder.noteItemView который отображает
         // приоритет и устанвливаем его
         View priorityView = holder.noteItemView.findViewById(R.id.priorityView);
 
+        setNoteViewFeatures(note, noteItemViewText, priorityView);
+
+        holder.noteItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onNoteClickListener != null){
+                    onNoteClickListener.onNoteClick(note);
+                }
+            }
+        });
+    }
+
+    /**
+     * Функция для установки свойств заметки (текста, приоритета)
+     * @param note объект заметки, в которую будут установлены свойства
+     * @param noteItemViewText объект textView внутри note в которую надо установить текст
+     * @param priorityView объект View внутри note которому нужно установить цвет фона исходя от приоритета
+     */
+    private void setNoteViewFeatures(Note note, TextView noteItemViewText, View priorityView) {
+        noteItemViewText.setText(note.getText());
         int bgId;
         switch (note.getPriority()){
             case 0:
@@ -65,17 +84,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             default:
                 bgId = R.drawable.high_priority_view_bg;
         }
-
         priorityView.setBackgroundResource(bgId);
-
-        holder.noteItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onNoteClickListener != null){
-                    onNoteClickListener.onNoteClick(note);
-                }
-            }
-        });
     }
 
     @Override

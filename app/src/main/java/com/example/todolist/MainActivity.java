@@ -7,17 +7,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.google.android.material.button.MaterialButton;
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
-                if (notes.isEmpty()){
+                if (notes.isEmpty()) {
                     emptyNotesPlaceholder.setVisibility(View.VISIBLE);
                     btnNewNote.setVisibility(View.GONE);
                     recyclerViewNotes.setVisibility(View.GONE);
@@ -105,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = AddNoteActivity.newIntent(MainActivity.this);
         startActivity(intent);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
