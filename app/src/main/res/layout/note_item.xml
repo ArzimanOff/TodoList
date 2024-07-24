@@ -27,7 +27,6 @@
         android:id="@+id/tvNoteItemText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:maxHeight="80dp"
         android:layout_weight="25"
         android:textSize="20sp"
         android:textColor="@color/main_color"

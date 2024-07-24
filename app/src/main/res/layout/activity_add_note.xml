@@ -72,17 +72,21 @@
         android:id="@+id/etNoteTextInputBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:minHeight="48dp"
+        android:layout_weight="1"
 
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="4dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+
+
         android:background="@drawable/edit_note_text_view_bg"
 
         android:hint="@string/etNoteTextInputBoxHint"
-
-        android:inputType="text"
-        android:minHeight="48dp"
-
-        android:paddingHorizontal="16dp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="500"
+        android:maxLines="10"
 
         app:layout_constraintBottom_toTopOf="@id/choosePriorityTitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +94,8 @@
         app:layout_constraintTop_toBottomOf="@id/etNoteTextInputBoxTitle"
 
         android:importantForAutofill="no"
+
+
         />
 
     <TextView
