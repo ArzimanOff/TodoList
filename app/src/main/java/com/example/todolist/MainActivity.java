@@ -98,12 +98,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        viewModel.refreshList();
-    }
-
     private void initViews() {
         recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
         btnNewNote = findViewById(R.id.btnNewNote);

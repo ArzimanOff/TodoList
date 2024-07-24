@@ -15,6 +15,7 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -29,27 +30,27 @@ public class AddNoteViewModel extends AndroidViewModel {
     }
 
     public void saveNote(Note note) {
-        Disposable disposable = addNoteRx(note)
+        Disposable disposable = notesDao.add(note)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() throws Throwable {
-                        Log.d("AddNoteViewModel BD_CHANGE", "New note added with info: " + note.toString());
-                        noteAdded.setValue(true);
-                    }
-                });
+                .subscribe(
+                        new Action() {
+                            @Override
+                            public void run() throws Throwable {
+                                Log.d("AddNoteViewModel BD_CHANGE", "New note added with info: " + note.toString());
+                                noteAdded.setValue(true);
+                            }
+                        },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Throwable {
+                                Log.d("AddNoteViewModel Throw", "Ошибка добавления объекта в список");
+                            }
+                        }
+                );
         compositeDisposable.add(disposable);
     }
 
-    private Completable addNoteRx(Note note){
-        return Completable.fromAction(new Action() {
-            @Override
-            public void run() throws Throwable {
-                notesDao.add(note);
-            }
-        });
-    }
 
     public LiveData<Boolean> getNoteAdded() {
         return noteAdded;
