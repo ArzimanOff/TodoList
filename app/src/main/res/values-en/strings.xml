@@ -15,4 +15,6 @@
     <string name="empty_notes_placeholder_text_1st_part">Oops...</string>
     <string name="empty_notes_placeholder_text_2nd_part">It looks like the list of notes is empty!</string>
     <string name="placeholder_new_note_btn">Add note</string>
+    <string name="empty_list_img_description_text">Empty list</string>
+    <string name="empty_notes_placeholder_text_full">Oops... It looks like the list of notes is empty!</string>
 </resources>
