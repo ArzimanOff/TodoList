@@ -1,41 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/noteItem"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:maxHeight="80dp"
     android:orientation="horizontal"
-
-    android:padding="16dp"
-    android:layout_marginHorizontal="16dp"
+    android:background="#B5B5B5"
     android:layout_marginVertical="8dp"
-
-    android:background="@drawable/note_view_bg"
     >
 
-    <View
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/priorityView"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:background="@drawable/high_priority_view_bg"
-        />
 
-    <TextView
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/tvNoteItemText"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/noteItemContent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
-        android:textSize="20sp"
-        android:textColor="@color/main_color"
-        android:layout_marginStart="16dp"
+        android:maxHeight="80dp"
+        android:orientation="horizontal"
 
-        android:text="TestTextTestTextTestTextTestText3er"
-        />
+        android:padding="16dp"
+        android:layout_marginHorizontal="16dp"
+
+        android:background="@drawable/note_view_bg">
+
+        <View
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/priorityView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/high_priority_view_bg"
+            />
+
+        <TextView
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/tvNoteItemText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:textSize="20sp"
+            android:textColor="@color/main_color"
+            android:layout_marginStart="16dp"
+
+            android:text="TestTextTestTextTestTextTestTextText"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/noteItemDelete"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:maxHeight="80dp"
+        android:orientation="horizontal"
+
+        android:padding="16dp"
+        android:layout_marginHorizontal="16dp"
+
+        android:background="@drawable/note_view_bg">
 
 
+    </LinearLayout>
 
 </LinearLayout>
 

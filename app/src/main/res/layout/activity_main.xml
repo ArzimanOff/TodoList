@@ -6,6 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+    <LinearLayout
+        android:id="@+id/mainContentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/contentSortView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+
+            android:padding="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+
+            android:background="@drawable/note_view_bg"
+            android:orientation="horizontal"
+
+            >
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewNotes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            tools:listitem="@layout/note_item"
+            />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnNewNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:contentDescription="@string/btnAddNoteDescription" />
+
     <LinearLayout
         android:id="@+id/empty_notes_placeholder"
         android:layout_width="match_parent"
@@ -17,7 +72,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         >
 
         <TextView
@@ -67,30 +122,4 @@
             />
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNotes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnNewNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:contentDescription="@string/btnAddNoteDescription" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
